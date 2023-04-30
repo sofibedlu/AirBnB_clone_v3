@@ -39,9 +39,9 @@ def create_amenity():
     try:
         data = request.get_json()
     except Exception:
-        return make_response("Not a JSON\n", 400)
+        return make_response("Not a JSON", 400)
     if not data.get('name'):
-        return make_response("Missing name\n", 400)
+        return make_response("Missing name", 400)
     new = Amenity(name=data.get('name'))
     new.save()
     return make_response(jsonify(new.to_dict()), 201)
@@ -57,7 +57,7 @@ def update_amenity(amenity_id):
     try:
         data = request.get_json()
     except Exception:
-        return make_response("Not a JSON\n", 400)
+        return make_response("Not a JSON", 400)
     for key, value in data.items():
         if key not in ['id', 'created_at', 'updated_at']:
             setattr(amenity, key, value)
