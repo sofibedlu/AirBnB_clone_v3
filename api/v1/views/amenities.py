@@ -30,7 +30,7 @@ def get_amenity(amenity_id):
     elif request.method == 'DELETE':
         storage.delete(amenity)
         storage.save()
-        return make_response(jsonify({}), 200)
+        return make_response({}, 200)
 
 
 @app_views.route('/amenities', methods=['POST'], strict_slashes=False)
