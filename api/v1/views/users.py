@@ -43,9 +43,11 @@ def delete_user(user_id):
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def create_user():
     """creates a User object"""
+    if not request.is_json:
+        abort(400, "Not a JSON")
     try:
         data = request.get_json()
-    except Exception:
+    except ValueError:
         return make_response("Not a JSON", 400)
     if not data.get('email'):
         return make_response("Missing email", 400)
@@ -63,9 +65,11 @@ def update_user(user_id):
     user = storage.get(User, user_id)
     if user is None:
         abort(404)
+    if not request.is_json:
+        abort(400, "Not a JSON")
     try:
         data = request.get_json()
-    except Exception:
+    except ValueError:
         return make_response("Not a JSON", 400)
     for key, value in data.items():
         if key not in ['id', 'created_at', 'updated_at', 'email']:
